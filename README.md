@@ -3,15 +3,15 @@
 
 Write a method printSquares that uses recursive backtracking to find all ways to express an integer as a sum of squares of unique positive integers. For example, the call of printSquares(200); should produce the following output:
 
-1^2 + 2^2 + 3^2 + 4^2 + 5^2 + 8^2 + 9^2
-1^2 + 2^2 + 3^2 + 4^2 + 7^2 + 11^2
-1^2 + 2^2 + 5^2 + 7^2 + 11^2
-1^2 + 3^2 + 4^2 + 5^2 + 6^2 + 7^2 + 8^2
-1^2 + 3^2 + 4^2 + 5^2 + 7^2 + 10^2
-2^2 + 4^2 + 6^2 + 12^2
-2^2 + 14^2
-3^2 + 5^2 + 6^2 + 7^2 + 9^2
-6^2 + 8^2 + 10^2
+1^2 + 2^2 + 3^2 + 4^2 + 5^2 + 8^2 + 9^2<br>
+1^2 + 2^2 + 3^2 + 4^2 + 7^2 + 11^2<br>
+1^2 + 2^2 + 5^2 + 7^2 + 11^2<br>
+1^2 + 3^2 + 4^2 + 5^2 + 6^2 + 7^2 + 8^2<br>
+1^2 + 3^2 + 4^2 + 5^2 + 7^2 + 10^2<br>
+2^2 + 4^2 + 6^2 + 12^2<br>
+2^2 + 14^2<br>
+3^2 + 5^2 + 6^2 + 7^2 + 9^2<br>
+6^2 + 8^2 + 10^2<br>
 
 Some numbers (such as 128 or 0) cannot be represented as a sum of squares, in which case your method should produce no output. Keep in mind that the sum has to be formed with unique integers. Otherwise you could always find a solution by adding 1^2 together until you got to whatever number you are working with.
 
