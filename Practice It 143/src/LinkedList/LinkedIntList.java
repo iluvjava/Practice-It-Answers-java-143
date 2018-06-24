@@ -537,9 +537,9 @@ public class LinkedIntList {
      *   <br><b>We need to realize that we need that node that comes before the lower and after the high 
      *   to remove all that nodes that comes in between.</b>
      *   <p>Notice</p>
-     *   If the higher int is bigger than the size, this function will still works 
+     *   If the higher Integer is bigger than the size, this function will still works 
      *   <br>
-     *   suggestion: Use recursion with a helper method will be way easier....
+     *   Hint: not using recursion will be really annoying. 
      * @param low
      * @param hight
      * @IllegalArgumentException
@@ -548,15 +548,147 @@ public class LinkedIntList {
      */
     public void removeRange(int low, int high)
     {
-    	if(high<low||low<0||high<0)throw new IllegalArgumentException();
-    	ListNode left =null, right=null;
-    	int i=0;
-    	for(ListNode n = this.front;n!=null&&i<=high;n=n.next,i++)
+    	if(low<0||high<0||low>high)throw new IllegalArgumentException();
+    	this.front = __removeRange(this.front, low, high, 0);
+    }
+    
+    /**
+     * This method is private helper method for the RemoveRange method. 
+     * @param n
+     * Node, which is current examing. 
+     * @param low
+     * @param high
+     * @param currentindex
+     * An index to keep track of where the method is at (in the call stack )! 
+     * @return
+     * A new new reference list node. 
+     */
+    private static ListNode __removeRange(ListNode n , int low, int high, int currentindex)
+    {
+    	
+    	// base case, cannot recurse. 
+    	if(n==null)return null; 
+    	// skip, the node is in the range. 
+		if(currentindex<=high &&currentindex>=low)
+		{
+			return __removeRange( n.next ,  low, high,  currentindex+1);
+		}
+		// keep the reference. 
+    	n.next = __removeRange( n.next ,  low, high,  currentindex+1);return n;
+    }
+    
+    
+    /**
+     * This method will double the lenghth of the list by making a copy of the list 
+     * and append it to the end of the list. <br>
+     * I will use recursion to solve this, because it's simple and cool, in the actual world,
+     * if using recursion will have to also use multithread to prevent stack over flow. 
+     * <br>
+     * <a href="https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/doubleList">
+     *  ORIGINAL QUESTION </a>
+     */
+    public void doubleList()
+    {
+    	if(this.front==null)return;
+    	doubleList( this.front,null ,null );
+    }
+    
+    
+    /**
+     * Recurse all the way to the end of this list while adding new nodes to 
+     * the input parameter, by the end of the recursion, new copy will 
+     * be added to the end of the list.  
+     * @param n <br>
+     * Whichever node that the method is currently working on. 
+     * @param
+     *  newcopyhead <br>
+     *  The head of the copied list
+     *  @param
+     *  newcopytail <br>
+     *  The tail of the copied list. 
+     */
+    private static ListNode doubleList(ListNode n, ListNode newcopyhead, ListNode newcopytail)
+    {
+    	// base case. 
+    	if(n==null)
     	{
-    		if(i+1==low)left=n;if(i==high)right=n.next;
+    		return newcopyhead;
+    	}
+    	// copy and recursion
+    	
+    	//-----A special case----
+    	if(newcopyhead ==null&&newcopytail==null)
+    	{
+    		ListNode head = new ListNode(n.data), tail = head;
+    		n.next = doubleList(n.next, head,tail);
+        	return n;
+    	}
+    	newcopytail.next = new ListNode(n.data);
+    	newcopytail = newcopytail.next;
+    	n.next = doubleList(n.next, newcopyhead,newcopytail);
+    	return n;
+    }
+    
+    
+    @Deprecated
+    public void rotate___()
+    {
+    	
+    	this.front=__roate___(this.front,null);
+    }
+    
+    
+    /**
+     * A private helper method. It will remove nodes from the list and return a new list when recursion 
+     * ended. <br>
+     * <p><b>APPROACH</b></p>
+     * This method will pass a rotated list, when it reach the end of the linked list, it will return 
+     * the paremeter as the rotated list. The key is adding the element in the list in reverse order 
+     * whe trasversing through the list. 
+     * @param n
+     * @param newlisthead
+     * @param newlisttail
+     * @return
+     */
+    @Deprecated
+    private ListNode __roate___(ListNode n, ListNode NewListHead)
+    {
+    	// base case 
+    	if(n==null)
+    	{
+    		return NewListHead;
     	}
     	
+    	// recursive case
+    	ListNode newhead = n;
+    	n = n.next;
+    	newhead.next=null;
+    	newhead.next=NewListHead;
+    	return __roate___(n, newhead);
     	
+    }
+    
+    
+    
+    /**
+     * <a href="https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/rotate">
+     * ORIGINAL QUESTION
+     * </a>
+     */
+    public void rotate()
+    {
+    	if(this.front==null||this.front.next==null)return; 
+    	ListNode frontnode=this.front;
+    	this.front= this.front.next;
+    	frontnode.next=null;
+    	ListNode n = null;
+    	for(n = this.front;n.next!=null;n=n.next);
+    	n.next = frontnode;	
+    }
+    
+    
+    public void shift()
+    {
     	
     }
     
