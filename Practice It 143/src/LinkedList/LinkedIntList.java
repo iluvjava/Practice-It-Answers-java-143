@@ -553,7 +553,7 @@ public class LinkedIntList {
     	int i=0;
     	for(ListNode n = this.front;n!=null&&i<=high;n=n.next,i++)
     	{
-    		if(i-1==low)left=n;if(i+1==high)right=n;
+    		if(i+1==low)left=n;if(i==high)right=n.next;
     	}
     	
     	
