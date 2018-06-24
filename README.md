@@ -87,3 +87,6 @@ private static void printResult(List<Integer> arg, int index)
 
 
 PLEASE GO TO READ THE CODE ABOVE FOR MORE COOL SOLUTION LIKE THIS. 
+
+<br>
+Here is a place where I put my answers for practice it, like the solution above is for recursive back tracking.
