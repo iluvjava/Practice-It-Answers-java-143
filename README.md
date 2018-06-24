@@ -22,6 +22,7 @@ Like with other backtracking problems, you still need to keep track of which cho
 To help you solve this problem, assume there already exists a method printHelper that accepts any Java collection of integers (such as a list, set, stack, queue, etc.) and prints the collection's elements in order. For example, if a set s stores the elements [1, 4, 8, 11], the call of printHelper(s); would produce the following output:
 
 1^2 + 4^2 + 8^2 + 11^2
+<pre>
 //Tips: 
 // each recursion should know where it is in the stack so that we won't call the 
 // same number and try to square them over and over again.
@@ -40,7 +41,7 @@ public static void printSquares(int n)
     printSquares_helper(new ArrayList<Integer>(),n,1);
 }
 
-                                                                           // level is the choice we made.
+                                                                          // level is the choice we made.
 private static void printSquares_helper(List<Integer> trials, int remainder,int level)
 {
     int upperbound =(int) Math.sqrt(remainder);
@@ -82,7 +83,7 @@ private static void printResult(List<Integer> arg, int index)
 
 // you should use a for loop to print out the list....
 
-
+</pre>
 
 
 PLEASE GO TO READ THE CODE ABOVE FOR MORE COOL SOLUTION LIKE THIS. 
