@@ -21,6 +21,10 @@ public class LinkedIntList {
     	System.out.println(lit);
     	System.out.println(lit.removeEvens());
     	System.out.println(lit);
+    	lit = new LinkedIntList(1,2,3);
+    	lit.shift();
+    	System.out.println(lit);
+    	
     }
     
     // Constructs an empty list.
@@ -598,6 +602,7 @@ public class LinkedIntList {
      * Recurse all the way to the end of this list while adding new nodes to 
      * the input parameter, by the end of the recursion, new copy will 
      * be added to the end of the list.  
+     * <a href= "https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/reverse"> Link </a>
      * @param n <br>
      * Whichever node that the method is currently working on. 
      * @param
@@ -630,11 +635,10 @@ public class LinkedIntList {
     }
     
     
-    @Deprecated
-    public void rotate___()
+    public void reverse()
     {
     	
-    	this.front=__roate___(this.front,null);
+    	this.front=reverse(this.front,null);
     }
     
     
@@ -650,8 +654,7 @@ public class LinkedIntList {
      * @param newlisttail
      * @return
      */
-    @Deprecated
-    private ListNode __roate___(ListNode n, ListNode NewListHead)
+    private ListNode reverse(ListNode n, ListNode NewListHead)
     {
     	// base case 
     	if(n==null)
@@ -664,7 +667,7 @@ public class LinkedIntList {
     	n = n.next;
     	newhead.next=null;
     	newhead.next=NewListHead;
-    	return __roate___(n, newhead);
+    	return reverse(n, newhead);
     	
     }
     
@@ -686,12 +689,150 @@ public class LinkedIntList {
     	n.next = frontnode;	
     }
     
-    
+    /**
+     * This method does the following: 
+     * <ol>
+     * <li>Take out all the element at odd index. 
+     * <li>add all the elements that taken out to the end of the list. 
+     * <li>The order of the taken out elements are preserved. 
+     * </ol>
+     * <a href="https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/shift"> ORIGINAL QUESION</a>
+     *<br>
+     *Using recursion will make things easy. 
+     */
     public void shift()
     {
+    	if(this.front ==null ||this.front.next==null||this.front.next.next==null)return; 
+    	 shift( this.front,  null, null);
+    }
+    
+    
+    private static void shift(ListNode n, ListNode head, ListNode tail)
+    {
+    	if(n.next==null){n.next = head;return;}
+    	ListNode temp = n.next;
+    	n.next = n.next.next;
+    	temp.next=null;
+    	if(head==null)
+    	{
+    		head=temp; tail =temp;
+    	}
+    	else
+    	{
+	    	tail.next=temp;
+	    	tail=tail.next;
+    	}
+    	
+    	if(n.next!=null){shift(n.next,  head, tail);return;};
+    	n.next=head;
+    }
+    
+    
+    
+    /**
+     * This method sum up all the values in the even index. 
+     * <br><a href="https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/evenSum">Link</a>
+     * @return
+     */
+    public int evenSum()
+    {
+    	int sum= 0;
+    	for(ListNode n = this.front; n!=null; sum+=n.data, n=n.next==null?n.next:n.next.next);
+    	return sum;
+    }
+    
+    
+    /**
+     * This method switches all the adjacent pairs in the list. 
+     * <br>
+     * <a href = "https://practiceit.cs.washington.edu/problem/view/cs2/sections/linkedlists/switchPairs">Link</a>
+     */
+    public void switchPairs()
+    {
+    	if(this.front==null)return;
+    	this.front = switchPairs(this.front, this.front.next);
+    }
+    
+    private static ListNode switchPairs(ListNode pre, ListNode n)
+    {
+    	if(pre==null||n==null)
+    	{
+    		if(n==null&&pre==null)return null;
+    		return pre;
+    	}
+    	ListNode nextpre = pre.next==null?null:pre.next.next;
+    	ListNode nextn =n.next==null?null:n.next.next;
+    	n.next=pre;
+    	pre.next= switchPairs( nextpre, nextn);
+    	return n;
     	
     }
     
+    
+ // "this " is list 1
+    public void takeSmallerFrom (LinkedIntList list2)
+    {
+        if(this.front== null|| list2.front == null)return;
+        
+        if(this.front.data> list2.front.data)
+        {
+            ListNode temp = this.front;
+           this.front = list2.front;
+            list2.front = temp;
+            swapSubList( this.front, list2.front);
+            
+        }
+        takeSmallerFrom(this.front, list2.front);
+    }
+    /**
+     * Helper method for take smaller from
+     * @param thispre1
+     * @param list2pre2
+     */
+    private static void takeSmallerFrom(ListNode thispre1, ListNode list2pre2)
+    {
+        if(thispre1.next == null|| list2pre2.next == null)return;
+        
+        if(thispre1.next.data> list2pre2.next.data)
+        {
+            comboMovements(thispre1, list2pre2);
+        }
+        takeSmallerFrom(thispre1.next, list2pre2.next);
+    }
+
+    /**
+     * Helper method for take smaller from
+     * @param thispre1
+     * @param list2pre2
+     */
+    private static void swapSubList(ListNode pre1, ListNode pre2)
+    {
+        if(pre1!= null && pre2!=null)
+        {
+        ListNode temp = pre1.next; 
+        pre1.next = pre2.next;
+        pre2.next = temp;
+        }
+    }
+
+    /**
+     * Helper method for take smaller from
+     * @param thispre1
+     * @param list2pre2
+     */
+    private static void comboMovements(ListNode pre1, ListNode pre2)
+    {
+        swapSubList(pre1, pre2);
+        swapSubList(pre1.next, pre2.next);
+    }
+
+
+
+    	
+    	
+    	
+    	
+  
     
     
     
