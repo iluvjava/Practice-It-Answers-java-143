@@ -87,7 +87,7 @@ public class LinkedIntList {
     public boolean equals(Object o) {
         if (o instanceof LinkedIntList) {
             LinkedIntList other = (LinkedIntList) o;
-            return toString().equals(other.toString());   // hackish
+            return toString().equals(other.toString());   // hackish; Yeah, agree. 
         } else {
             return false;
         }
@@ -325,10 +325,11 @@ public class LinkedIntList {
      */
     public boolean isSorted()
     {
-    	int i = 0;
-    	for(ListNode n = this.front; n!=null&&n.next!=null;i=n.next.data-n.data,n=n.next)
-    	if(i<0)return false;
-    	return true; 
+        if(this.front==null)return true;
+        int i = 0;
+        for(ListNode n = this.front; n.next!=null;n=n.next)
+        if(n.next.data-n.data<0)return false;
+        return true; 
     }
     
     /**
