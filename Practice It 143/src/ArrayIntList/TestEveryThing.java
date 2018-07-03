@@ -50,6 +50,17 @@ public class TestEveryThing {
 					 second=second<size -1 ?second+1:first+1
 				)println(first+", "+second);
 		}
+		
+		
+		{
+			println("Testing the stretch idea...");
+			int previoussize = 4, arg =3;
+			for(int i = previoussize-1, repetation = 0; 
+					 i>=0;
+					 i=repetation == arg?i-1:i,
+					 repetation = repetation<arg?repetation+1:0
+				  )println(i);
+		}
 	}
 
 }

@@ -349,7 +349,119 @@ public class ArrayIntList implements Iterable<Integer> {
  public void mirror()
  {
 	 
+	 int previoussize =this.size;
+	 this.ensureCapacity(this.size*2);
+	 this.size*=2;
+	 for(int left = previoussize-1, right = previoussize;left>=0;left--, right++)
+	 {
+		 this.elementData[right]= this.elementData[left];
+	 }
+	 
  }
+ 
+ 
+ /**
+  * This method does so fancy stuff...<br>
+  * <a href = "https://practiceit.cs.washington.edu/problem/view/cs2/sections/arrayintlist/stretch"> original question</a>
+  * @param arg
+  */
+ public void stretch(int arg)
+ {
+	 if(arg<=0)this.size=0;
+	 if(arg==1)return; 
+	 this.ensureCapacity(this.size*arg);
+	 int previoussize = this.size;
+	 arg-=2;
+	 for(int i = previoussize-1, repetation = 0; 
+			 i>=0;
+			 i=repetation == arg?i-1:i,
+			 repetation = repetation<arg?repetation+1:0
+		  )
+	 {
+		 this.add(i+1,this.get(i));
+	 }
+	 
+ }
+ 
+ 
+ /**
+  * <a href= "https://practiceit.cs.washington.edu/problem/view/cs2/sections/arrayintlist/longestSortedSequence">
+  * Original Question</a>
+  * @return
+  * The length of the longest sorted sub sequence in this list. 
+  */
+ public int longestSortedSequence()
+ {
+	 if(this.size<=1)return this.size; 
+	 int result =1; 
+	 for(int i =0, j = 1, temp = 1; j<this.size;i++,j++)
+	 {
+		 if(this.elementData[j]-this.elementData[i]>=0)
+		 {
+			 temp++;
+			 result = Math.max(temp, result);
+			 continue;
+		 }
+		 temp=1;
+	 }
+	 return result; 
+ }
+ 
+ 
+ 
+ /**
+  * This method takes the integral of the array<br>
+  * <a href = "https://practiceit.cs.washington.edu/problem/view/cs2/sections/arrayintlist/runningTotal">Original question</a>
+  * @return
+  */
+ public ArrayIntList runningTotal()
+ {
+	 
+	 int[] lst= Arrays.copyOf(this.elementData, this.size);
+	 
+	 for(int i = 1; i<this.size; i++)
+	 {
+		 lst[i]= lst[i-1]+lst[i];
+	 }
+	 ArrayIntList arry = new ArrayIntList();
+	 arry.elementData = lst;
+	 arry.size = lst.length;
+	 return arry;
+ }
+ 
+ 
+ 
+ /**
+  * <a href = "https://practiceit.cs.washington.edu/problem/view/cs2/sections/arrayintlist/isPairwiseSorted">Original question</a>
+  * @return
+  */
+ public boolean isPairwiseSorted ()
+ {
+	 for(int i = 0 , j = 1; i<this.size&&j<this.size; i+=2, j+=2)
+	 {
+		 if(this.elementData[j]<this.elementData[i])return false;
+	 }
+	 return true; 
+ }
+ 
+ 
+ /**
+  * Removes the first n elements in the list. We are going to swap element from
+  * <br>
+  * <a href= "https://practiceit.cs.washington.edu/problem/view/cs2/sections/arrayintlist/removeFront">Here</a>
+  * @param
+  * assume that the parameter passed is between zero and the size of the array inclusive. 
+  */
+ public void removeFront(int n)
+ {
+	 for(int left = 0, right = n; left<n; left++, right++)
+	 {
+		 this.elementData[left] = this.elementData[right];
+	 }
+	 this.size -= n;
+ }
+ 
+ 
  
 
 }
