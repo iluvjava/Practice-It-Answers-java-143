@@ -63,10 +63,19 @@ public class RadioStation implements Comparable<RadioStation>
 	/**
 	 * Radio band, station and then name. 
 	 */
-	public int compareTo(RadioStation o) {
+	public int compareTo(RadioStation o)
+	{
 		if(o==null)return -1; 
-		
-		return 0;
+		if(this == o)return 0;
+		if(this.getBand().equals(o.getBand()))
+			if(this.getStation()==o.getStation())
+				if(this.name.equals(o.name))
+					return 0;
+				else return this.name.compareTo(o.name);
+			else
+				return (int)Math.signum(this.getStation()-o.getStation());
+		else
+		return this.getBand().compareTo(o.getBand());
 	}
     
 // YOUR CODE GOES HERE
