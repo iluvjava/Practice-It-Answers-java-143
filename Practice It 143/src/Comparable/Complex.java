@@ -55,8 +55,6 @@ public class Complex implements Comparable<Complex> {
         return new Complex(x  -  other.x, y - other.y);
     }
 
-	
-
 // YOUR CODE GOES HERE
     
     @Override
